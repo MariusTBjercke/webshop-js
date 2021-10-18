@@ -41,7 +41,7 @@ signInWithPopup(auth, provider)
     const token = credential.accessToken;
     // The signed-in user info.
     const user = result.user;
-    console.log(token);
+    getData();
     // ...
   }).catch((error) => {
     // Handle Errors here.
@@ -54,9 +54,11 @@ signInWithPopup(auth, provider)
     // ...
   });
 
-  const unsub = onSnapshot(doc(db, "cities", "sandefjord"), (doc) => {
-    console.log("Current data: ", doc.data());
-  });
+  function getData() {
+    const unsub = onSnapshot(doc(db, "cities", "sandefjord"), (doc) => {
+      console.log("Current data: ", doc.data());
+    });
+  }
 
 // class TestItem {
 //   constructor (name, state, country) {
