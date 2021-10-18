@@ -2,6 +2,9 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-analytics.js";
 import { getAuth, onAuthStateChanged, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-auth.js";
+import {
+  getFirestore, doc, getDoc, setDoc, collection, addDoc, updateDoc, deleteDoc, deleteField, onSnapshot
+} from "https://www.gstatic.com/firebasejs/9.1.3/firebase-firestore.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -22,10 +25,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
-import {
-  getFirestore, doc, getDoc, setDoc, collection, addDoc, updateDoc, deleteDoc, deleteField
-} from "https://www.gstatic.com/firebasejs/9.1.3/firebase-firestore.js";
-
 // Initialize database
 const db = getFirestore();
 
@@ -42,6 +41,7 @@ signInWithPopup(auth, provider)
     const token = credential.accessToken;
     // The signed-in user info.
     const user = result.user;
+    console.log(token);
     // ...
   }).catch((error) => {
     // Handle Errors here.
@@ -52,6 +52,10 @@ signInWithPopup(auth, provider)
     // The AuthCredential type that was used.
     const credential = GoogleAuthProvider.credentialFromError(error);
     // ...
+  });
+
+  const unsub = onSnapshot(doc(db, "cities", "sandefjord"), (doc) => {
+    console.log("Current data: ", doc.data());
   });
 
 // class TestItem {
