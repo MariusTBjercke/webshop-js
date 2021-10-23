@@ -1,12 +1,20 @@
 <template>
     
-    <div class="box">
+    <div>
+
+        <h2>Melding</h2>
         
-        <p>
+        <div class="box">
+            
+            
 
-            <slot></slot>
+            <p>
 
-        </p>
+                <slot></slot>
+
+            </p>
+
+        </div>
 
     </div>
 

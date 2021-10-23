@@ -1,16 +1,35 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <Message>test</Message>
+    <button @click="signOut">Logg ut</button>
+    <store-nav></store-nav>
   </div>
 </template>
 
 <script>
-import Message from '../components/Message.vue'
+import StoreNav from '../components/StoreNav.vue'
+import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import router from '../router';
+
 export default {
   name: 'Home',
+  methods: {
+    signOut: function() {
+      let route = this.$route;
+      signOut(getAuth()).then(function() {
+        console.log('Signed out');
+        router.push({
+          name: 'Login',
+          params: {
+            logout: true,
+          }
+        });
+      }, function(error) {
+        console.log('Sign out error', error);
+      });
+    }
+  },
   components: {
-    Message
+    StoreNav
   }
 }
 </script>
