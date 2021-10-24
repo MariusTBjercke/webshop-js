@@ -35,9 +35,6 @@ export default {
             updateDoc(categoriesRef, {
                 categories: arrayUnion(this.input.addCategory),
             });
-            setTimeout(function() {
-                    console.log('wait..');
-            }, 1000)
             // Clear input after submit
             this.input.addCategory = "";
         },
