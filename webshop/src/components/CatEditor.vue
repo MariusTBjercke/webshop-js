@@ -1,8 +1,9 @@
 <template>
     
     <div>
-        <div class="navigation">
+        <div class="editor-navigation">
             <h5>Kategorier:</h5>
+            <h6>Du kan slette kategorier ved å holde musepekeren over en kategori, for så å trykke på X.</h6>
             <div class="navbar-container">
                 <div class="category" v-for="(category, index) in categories" v-bind:key="index" @mouseover="showDel(index)" @mouseleave="hideDel(index)"><div ref="delBtn" class="delete-category" @click="delCat(category)">x</div>{{ category }}</div>
             </div>
@@ -62,7 +63,7 @@ export default {
 
 <style lang="scss">
 
-.navigation {
+.editor-navigation {
     
     .navbar-container {
         display: flex;
@@ -86,6 +87,10 @@ export default {
     }
 
     h5 {
+        margin: 10px 0 10px 0;
+    }
+
+    h6 {
         margin: 10px 0 10px 0;
     }
 

@@ -5,6 +5,7 @@ import router from './router';
 import Home from './views/Home.vue';
 import Login from './views/Login.vue';
 import SignUp from './views/SignUp.vue';
+import Admin from './views/Admin.vue';
 
 Vue.use(Router);
 
@@ -33,6 +34,15 @@ export default new Router({
             path: '/home',
             name: 'Home',
             component: Home,
+            params: true,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/admin',
+            name: 'Admin',
+            component: Admin,
             params: true,
             meta: {
                 requiresAuth: true

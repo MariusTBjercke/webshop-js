@@ -1,35 +1,20 @@
 <template>
   <div class="home">
-    <button @click="signOut">Logg ut</button>
-    <store-nav></store-nav>
+    <router-link to="admin"><button>Administrer</button></router-link>
+    <cat-navigation></cat-navigation>
   </div>
 </template>
 
 <script>
-import StoreNav from '../components/StoreNav.vue'
 import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
-import router from '../router';
+import CatNavigation from '../components/CatNavigation.vue';
 
 export default {
   name: 'Home',
   methods: {
-    signOut: function() {
-      let route = this.$route;
-      signOut(getAuth()).then(function() {
-        console.log('Signed out');
-        router.push({
-          name: 'Login',
-          params: {
-            logout: true,
-          }
-        });
-      }, function(error) {
-        console.log('Sign out error', error);
-      });
-    }
   },
   components: {
-    StoreNav
+    CatNavigation
   }
 }
 </script>
