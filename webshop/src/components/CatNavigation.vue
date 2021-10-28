@@ -3,8 +3,9 @@
     <div>
         <div class="navigation">
             <div class="navbar-container">
-                <div class="category" v-for="(category, index) in categories" v-bind:key="index">{{ category }}</div>
+                <div class="category" v-for="(category, index) in categories" v-bind:key="index" @click="chooseCategory(category, index)">{{ category }}</div>
             </div>
+            <h4>Valgt kategori: {{ chosenCategory }}</h4>
         </div>
     </div>
 
@@ -15,23 +16,30 @@ import { doc, setDoc, updateDoc, onSnapshot, addDoc, collection, arrayUnion, arr
 import { db } from "../firebase";
 
 export default {
-    data() {
+    data: function() {
         return {
             categories: null,
+            chosenCategory: 'Ingen',
+            chosenCategoryID: null,
             input: {
                 addCategory: "",
             },
         }
     },
-    created() {
+    created: function() {
         this.fetchData();
     },
     methods: {
-        fetchData() {
+        fetchData: function() {
             onSnapshot(doc(db, "shop", "products"), (doc) => {
                 this.categories = doc.data().categories;
             });
         },
+        chooseCategory: function(category, index) {
+            this.chosenCategory = category;
+            this.chosenCategoryID = index;
+            this.$emit('category', this.chosenCategoryID);
+        }
     }
 }
 
@@ -49,6 +57,7 @@ export default {
             padding: 10px 20px;
             margin: 5px 5px 5px 0;
             border: 1px solid black;
+            cursor: pointer;
         }
     }
 

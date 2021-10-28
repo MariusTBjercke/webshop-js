@@ -9,6 +9,11 @@
             </div>
             <input type="text" v-model="input.addCategory">
             <input @click="addCategory" type="submit" value="Legg til kategori">
+            <select v-model="input.categoryID">
+                <option v-for="(category, index) in categories" v-bind:key="index" :value="index">{{ category }}</option>
+            </select>
+            <input type="text" v-model="input.addProduct">
+            <input @click="addProduct" type="submit" value="Legg til produkt">
         </div>
     </div>
 
@@ -23,7 +28,9 @@ export default {
         return {
             categories: null,
             input: {
-                addCategory: "",
+                addCategory: null,
+                categoryID: null,
+                addProduct: null,
             },
         }
     },
@@ -32,12 +39,25 @@ export default {
     },
     methods: {
         addCategory: function() {
-            const categoriesRef = doc(db, "shop", "products");
-            updateDoc(categoriesRef, {
+            const productsRef = doc(db, "shop", "products");
+            updateDoc(productsRef, {
                 categories: arrayUnion(this.input.addCategory),
             });
             // Clear input after submit
             this.input.addCategory = "";
+        },
+        addProduct: function() {
+            const productsRef = doc(db, "shop", "products");
+            let product = {
+                categoryID: this.input.categoryID,
+                title: this.input.addProduct
+            };
+            updateDoc(productsRef, {
+                items: arrayUnion(product),
+            });
+            // Clear input after submit
+            this.input.addProduct = "";
+            this.input.categoryID = "";
         },
         fetchData() {
             onSnapshot(doc(db, "shop", "products"), (doc) => {
