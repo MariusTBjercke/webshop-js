@@ -5,7 +5,7 @@
             <div class="navbar-container">
                 <div class="category" v-for="(category, index) in categories" v-bind:key="index" @click="chooseCategory(category, index)">{{ category }}</div>
             </div>
-            <h4>Valgt kategori: {{ chosenCategory }}</h4>
+            <h4>Valgt kategori: {{ category.name }}</h4>
         </div>
     </div>
 
@@ -19,8 +19,10 @@ export default {
     data: function() {
         return {
             categories: null,
-            chosenCategory: 'Ingen',
-            chosenCategoryID: null,
+            category: {
+                name: 'Ingen',
+                id: null
+            },
             input: {
                 addCategory: "",
             },
@@ -36,9 +38,9 @@ export default {
             });
         },
         chooseCategory: function(category, index) {
-            this.chosenCategory = category;
-            this.chosenCategoryID = index;
-            this.$emit('category', this.chosenCategoryID);
+            this.category.name = category;
+            this.category.id = index;
+            this.$emit('category', this.category);
         }
     }
 }

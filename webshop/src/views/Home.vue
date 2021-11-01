@@ -16,7 +16,10 @@ export default {
   name: 'Home',
   data: function() {
     return {
-      category: null,
+      chosenCategory: {
+        name: null,
+        id: null
+      },
       products: [],
     }
   },
@@ -24,8 +27,9 @@ export default {
     this.getItemsFromCategory();
   },
   methods: {
-    getCategory: function(value) {
-      this.category = value;
+    getCategory: function(categoryData) {
+      this.chosenCategory.name = categoryData.name;
+      this.chosenCategory.id = categoryData.id;
       this.getItemsFromCategory();
     },
     getItemsFromCategory: function() {
@@ -34,7 +38,7 @@ export default {
         let products = doc.data().items;
         this.products = []; // Reset array
         products.forEach(item => {
-          if (this.category === item.categoryID) {
+          if (this.chosenCategory.id === item.categoryID) {
             this.products.push(item.title);
           }
         });

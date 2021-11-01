@@ -34,6 +34,7 @@ export default new Router({
             path: '/home',
             name: 'Home',
             component: Home,
+            props: true,
             params: true,
             meta: {
                 requiresAuth: true
